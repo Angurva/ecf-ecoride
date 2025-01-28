@@ -30,7 +30,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className="bg-sky-500 max-w-7xl mx-auto p-6 flex items-center justify-between md:justify-normal md:gap-10">
+    <nav className="bg-sky-600 max-w-7xl mx-auto p-6 flex items-center justify-between md:justify-normal md:gap-10">
       <div className="md:text-4xl">Ecoride</div>
       <div className="md:flex items-center md:w-full">
         {
@@ -45,13 +45,13 @@ export default function Navbar() {
             </button>
         }
         <ul id="toggled menu" aria-expanded={isOpen} className={`w-full absolute top-full left-0 -z-10 
-          border-b border-sky-500 flex flex-col pl-6 pb-6 bg-sky-500 
+          border-b border-sky-500 flex flex-col pl-6 pb-6 bg-sky-600 
           md:static md:z-10 md:w-full md:transform-none md:border-none md:flex-row md:items-center md:gap-5 md:pl-0 md:pb-0
           transform ${ isOpen ? `-translate-y-0`: `-translate-y-full`}`} >
           {
             menuNav.map((item)=>(
               <li key={item.id} className="">
-                <Link href={item.path} className="flex items-center gap-1 hover:text-amber-200">
+                <Link href={item.path} className="flex items-center gap-1 hover:text-amber-300">
                   <item.icon className=""/>
                   <span>{item.name}</span>
                 </Link>
@@ -59,7 +59,7 @@ export default function Navbar() {
             ))
           }
           <li>
-            <Link href="/dashboard" className="flex items-center gap-1 hover:text-amber-200">
+            <Link href="/dashboard" className="flex items-center gap-1 hover:text-amber-300">
               <RiDashboardFill/>
               <span>Dashboard</span>
             </Link>
@@ -70,7 +70,7 @@ export default function Navbar() {
             {
               menuAuth.map((item)=>(
                 <li key={item.id}>
-                  <Link href={item.path} className="hover:text-amber-200">
+                  <Link href={item.path} className="hover:text-amber-300">
                     <span>{item.name}</span>
                   </Link>
                 </li>
@@ -79,7 +79,7 @@ export default function Navbar() {
             }
           </div>
           <div>
-            <Link href="#" className="hover:text-amber-200">
+            <Link href="#" className="hover:text-amber-300">
               <span>Logout</span>
             </Link>
             

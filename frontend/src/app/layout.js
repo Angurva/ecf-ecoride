@@ -25,13 +25,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="h-screen w-full p-0 m-0 flex flex-col text-white">
-          <header className="bg-sky-500 sticky top-0 w-full shadow">
+          <header className="bg-sky-600 sticky top-0 w-full shadow">
             <Navbar/>
           </header>
           <main className="">
             {children}
           </main>
-          <footer className="mt-auto">
+          <footer className="mt-auto bg-sky-600 w-full shadow py-4">
             <Footer />
           </footer>
         </div>
