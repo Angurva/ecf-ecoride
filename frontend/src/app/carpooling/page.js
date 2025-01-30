@@ -35,7 +35,7 @@ export default function CarpoolingPage() {
                     </div>         
                 </div>
                 <div className="md:col-span-6 col-span-9 p-2 flex flex-col row-span-5 gap-4"> 
-                    <div className="box-border border border-slate-300 bg-slate-50 rounded-md px-5 py-3 flex items-center shadow gap-5">
+                    <div className="box-border border border-slate-200 bg-slate-100 rounded-md px-5 py-3 flex items-center shadow gap-5">
                         <div className="md:grid md:grid-cols-7 w-full">
                             <div className="md:col-span-2 flex w-full items-center justify-between px-4">
                                 <div className="box-border md:size-12 md:text-base text-sm size-8 rounded-full border-2 border-slate-300 flex justify-center items-center">

@@ -44,7 +44,7 @@ export default function Navbar() {
                 <RiMenuFill className="text-xl" />
             </button>
         }
-        <ul id="toggled menu" aria-expanded={isOpen} className={`w-full absolute top-full left-0 -z-10 
+        <ul id="toggled menu" aria-expanded={isOpen} className={`w-full absolute top-full left-0 -z-10
           border-b border-sky-500 flex flex-col pl-6 pb-6 bg-sky-600 
           md:static md:z-10 md:w-full md:transform-none md:border-none md:flex-row md:items-center md:gap-5 md:pl-0 md:pb-0
           transform ${ isOpen ? `-translate-y-0`: `-translate-y-full`}`} >
