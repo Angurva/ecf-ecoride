@@ -1,7 +1,16 @@
 import React from 'react'
 
-export default function page() {
+import Admin from '@/components/Dashboard/Admin';
+import User from '@/components/Dashboard/User';
+import Employee from '@/components/Dashboard/Employee';
+
+export default function Dashboard() {
+
+
   return (
-    <div>page</div>
+    <section className="max-w-7xl mx-auto p-6 flex flex-col items-center justify-center gap-5 text-gray-700">
+      Dashboard
+      <User/>
+    </section>
   )
 }

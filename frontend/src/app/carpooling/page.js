@@ -13,9 +13,9 @@ export default function CarpoolingPage() {
             <Searchbar/>
             <div className="w-full grid grid-flow-col py-5 gap-2">
                 <div className="md:col-span-4 col-span-3 row-end-2 flex p-2">
-                    <div className="box-border w-full shadow-md border border-sky-600 rounded-md p-2">
+                    <div className="box-border w-full shadow-md border border-sky-600 rounded-md p-2 bg-white">
                         <h5 className="text-sky-600 text-center md:text-xl mb-2">Filtres</h5>
-                        <hr className="m-2 text-sky-600"/>
+                        <hr className="m-2 border-t border-sky-600"/>
                         <div className="flex items-center gap-2 p-2 text-sm md:text-base">
                             <input type="radio" className="" name="filterRadio" />
                             <label htmlFor="" className="text-gray-600">Prix</label>
@@ -35,7 +35,7 @@ export default function CarpoolingPage() {
                     </div>         
                 </div>
                 <div className="md:col-span-6 col-span-9 p-2 flex flex-col row-span-5 gap-4"> 
-                    <div className="box-border border border-slate-200 bg-slate-100 rounded-md px-5 py-3 flex items-center shadow gap-5">
+                    <div className="box-border border border-slate-200 bg-white rounded-md px-5 py-3 flex items-center shadow gap-5">
                         <div className="md:grid md:grid-cols-7 w-full">
                             <div className="md:col-span-2 flex w-full items-center justify-between px-4">
                                 <div className="box-border md:size-12 md:text-base text-sm size-8 rounded-full border-2 border-slate-300 flex justify-center items-center">

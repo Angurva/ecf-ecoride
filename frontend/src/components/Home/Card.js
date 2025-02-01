@@ -34,7 +34,7 @@ export default function Card() {
     <div className="w-full flex flex-col gap-5">
         {
         articles.map((art)=>(
-            <article className="box-border border border-sky-600 w-full text-gray-900 rounded-md" key={art.id}>
+            <article className="box-border border border-sky-600 bg-white w-full text-gray-900 rounded-md" key={art.id}>
                 <div className={`md:grid md:grid-cols-12 flex ${art.id % 2 ? "flex-col" : "flex-col-reverse"} `}>
                     {
                         art.id % 2 
