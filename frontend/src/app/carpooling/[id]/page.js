@@ -11,7 +11,7 @@ export default function CarpoolingById() {
         <span className="text-2xl font-semibold">Jeudi, 30 Janvier 2025</span>{/** replace to data api backend */}
         <div className="md:grid md:grid-cols-3 flex flex-col gap-4">
 
-            <div className="md:col-span-2 flex flex-col gap-4">
+            <div className="md:col-span-2 flex flex-col gap-4 md:order-1 order-2 ">
 
                 <div className="box-border border border-slate-200 p-6 rounded-md flex items-center gap-1 h-[160px] shadow bg-slate-100">
                     <div className="flex flex-col justify-between h-full py-1">
@@ -71,7 +71,7 @@ export default function CarpoolingById() {
             </div>
 
 
-            <div className="md:col-span-1">
+            <div className="md:col-span-1 order-1">
                 <div className="box-border border border-slate-200 bg-slate-100 p-6 rounded-md flex flex-col gap-2">
                      <div className="flex items-center md:gap-7 gap-5">
                         <div className="box-border size-16 rounded-full border-2 border-slate-300  flex justify-center items-center">
@@ -87,7 +87,7 @@ export default function CarpoolingById() {
                         <button className="ml-auto mr-1 border border-sky-600 text-sky-600 py-1 px-2 rounded-md hover:bg-sky-600 hover:text-slate-200  ">15 avis</button> {/** replace to data api backend */}    
 
                     </div>                    
-                    <hr className="text-red-500 my-5"/>      
+                    <hr className="border-t border-gray-300 my-5"/>      
                     <div className="flex flex-col gap-2 px-4">
                         <div className="flex items-center gap-2">
                              <PiCarProfileThin className="text-xl"/>
