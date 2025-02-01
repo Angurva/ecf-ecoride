@@ -24,11 +24,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-<<<<<<< HEAD
-        <div className="md:h-screen w-full p-0 m-0 flex flex-col text-white bg-slate-100">
-=======
-        <div className="md:h-screen w-full p-0 m-0 flex flex-col text-white bg-slate-100">
->>>>>>> frontend/authentication
+
+
+        <div className="md:h-screen w-full p-0 m-0 flex flex-col text-white">
+   
           <header className="bg-sky-600 sticky top-0 w-full shadow">
             <Navbar/>
           </header>
