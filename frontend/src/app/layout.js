@@ -26,15 +26,15 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
 
-        <div className="md:h-screen w-full p-0 m-0 flex flex-col text-white">
+        <div className="min-h-screen w-full p-0 m-0 flex flex-col text-white bg-slate-100">
    
           <header className="bg-sky-600 sticky top-0 w-full shadow">
             <Navbar/>
           </header>
-          <main className="">
+          <main className="grow">
             {children}
           </main>
-          <footer className="mt-auto bg-sky-600 w-full shadow py-4">
+          <footer className="md:mt-auto bg-sky-600 w-full shadow py-4">
             <Footer />
           </footer>
         </div>

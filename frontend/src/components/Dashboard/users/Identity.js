@@ -7,7 +7,7 @@ export default function Identity() {
     <div 
         className="
             flex flex-col items-center justify-center gap-5
-            md:flex-row md:justify-start md:gap-10 
+            md:flex-row md:justify-start md:gap-10
         "
     >
         <div

@@ -26,9 +26,9 @@ export default function RegisterPage() {
             <label htmlFor="confirmPassword" className="text-[14px] font-semibold mx-1">Confirmation&nbsp;du&nbsp;mot&nbsp;de&nbsp;passe&nbsp;:</label>
             <input id="confirmPassword" type="password" className="h-8 border border-slate-400 rounded-md px-1 py-1 focus:outline-none" />
           </div>
-          <hr className="border-t border-slate-500 mt-5"/>
-          <Link href="/login"><span className="text-sm font-semibold text-red-600">Déjà un compte? se connecter</span></Link>
-          <div className="flex justify-between mt-5">
+          <hr className="border-t border-slate-500 mt-5 collapse md:visible"/>
+          <Link href="/login" className="collapse md:visible"><span className="text-sm font-semibold text-red-600">Déjà un compte? se connecter</span></Link>
+          <div className="flex justify-between md:mt-5">
             <button className="border border-sky-600 px-2 py-1 rounded-md text-sky-600 hover:text-slate-100 hover:bg-sky-600">Annuler</button>
             <button className="border border-sky-600 px-2 py-1 rounded-md text-sky-600 hover:text-slate-100 hover:bg-sky-600">s'enregistrer</button>
           </div>

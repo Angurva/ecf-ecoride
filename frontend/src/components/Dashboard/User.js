@@ -21,7 +21,7 @@ export default function User() {
     <article 
         className="
             w-full
-            
+            h-full
             md:grid md:grid-cols-6 gap-2 flex flex-col
         "
     >

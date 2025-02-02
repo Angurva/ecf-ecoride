@@ -9,7 +9,6 @@ export default function Dashboard() {
 
   return (
     <section className="max-w-7xl mx-auto p-6 flex flex-col items-center justify-center gap-5 text-gray-700">
-      Dashboard
       <User/>
     </section>
   )
