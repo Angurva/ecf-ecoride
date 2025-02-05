@@ -27,7 +27,8 @@ class AuthenticationController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        //$user->api_token = Str::random(64);
+        $user->isEnabled = true;
+ 
         $user->save();
         /*$roles_list=json_decode($request->input('roles'));
         foreach($roles_list as $role)
