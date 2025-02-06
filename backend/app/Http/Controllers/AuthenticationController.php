@@ -15,6 +15,8 @@ class AuthenticationController extends Controller
 {
     /**function to register a new account
      * 
+     * 
+     * 
      */
     public function register(Request $request, RegisterValidation $validation)
     {
@@ -28,15 +30,8 @@ class AuthenticationController extends Controller
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->isEnabled = true;
- 
-        $user->save();
-        /*$roles_list=json_decode($request->input('roles'));
-        foreach($roles_list as $role)
-        {
-            $role_user = Role::where('name', $role)->firstOrFail();
-            $user->roles()->attach($role_user->id);
-        }*/
-        
+        $user->save(); 
+        $user->roles()->attach(1);        
         return response()->json($user, 200);
     }
 
@@ -52,9 +47,8 @@ class AuthenticationController extends Controller
                     ->select('username','email','api_token')
                     ->where('email',$request->input('email'))
                     ->firstOrFail(); */
-            $user = User::with('roles')
-                    ->where('email',$request->input('email'))
-                    ->firstOrFail();
+            $user = User::where('email',$request->input('email'))
+                        ->firstOrFail();
                     
             return response()->json($user, 200); 
         }

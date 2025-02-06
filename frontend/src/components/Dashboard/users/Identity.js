@@ -1,8 +1,14 @@
+'use client'
+
+import { useSession } from 'next-auth/react';
 import React from 'react'
 
 import { RiStarFill } from 'react-icons/ri';
 
 export default function Identity() {
+
+    const {data: session } = useSession()
+
   return (
     <div 
         className="
@@ -24,15 +30,15 @@ export default function Identity() {
                     text-xl uppercase 
                     md:text-2xl "
                 >
-                username
+                {session?.user.username}
                 </div>
                 <div className="flex items-center gap-2 ">
                     <RiStarFill className="text-amber-400 text-2xl"/>
-                    <span className="text-xl md:text-2xl">4.5/5</span>
+                    <span className="text-xl md:text-2xl">4.5/5</span>{/** à modifier par data db */}
                 </div>
                
             </div>
-             <span className="">tartantpion@test.fr</span>
+             <span className="">{session?.user.email}</span>
             
             
         </div>
@@ -45,7 +51,7 @@ export default function Identity() {
                 hover:text-slate-200 hover:bg-sky-600 ease-in-out duration-500
             "
         >
-                45 avis
+                45 avis {/** à modifier par data db */}
         </button>
         
     </div>

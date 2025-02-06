@@ -8,12 +8,30 @@ import Identity from './users/Identity';
 import Informations from './users/Informations';
 import Favourites from './users/Favourites';
 import Vehicle from './users/Vehicle';
+import { useSession } from 'next-auth/react';
+import { Form } from 'react-hook-form';
 
-export default function User() {
+export default function User(roles) {
 
-    const [isChecked, setIsChecked ] = useState(false)
+    const { data: session } = useSession()
 
-    const [ isDisabled, setIsDisabled ] = useState(true)
+    const [ data, setData ] = useState(roles)
+
+    const [isChecked, setIsChecked ] = useState("")
+
+    //const [ isDisabled, setIsDisabled ] = useState(true)
+
+    
+
+    useEffect(()=>{
+
+
+    }, [])
+
+    const handleChange = () => {
+
+
+    }
 
 
 
@@ -52,16 +70,40 @@ export default function User() {
                             "
                         > 
                             <div className="flex grow items-center gap-2 text-lg">
-                                <input id="passenger" type="radio" className="" name="roleuser"/>
+                                <input 
+                                    id="passenger" 
+                                    type="radio" 
+                                    className="" 
+                                    name="roleuser" 
+                                    value="passenger"
+                                    checked={isChecked === "passenger"}
+                                    />
                                 <label htmlFor="passenger" className="cursor-pointer">Passager</label>
                             </div>
                             <div className="flex items-center gap-2 text-lg">
-                                <input id="driver" type="radio" className="" name="roleuser"/>
+                                <input 
+                                    id="driver" 
+                                    type="radio" 
+                                    className="" 
+                                    name="roleuser"
+                                    value="driver"
+                                    checked={ isChecked === "driver"}
+                                    />
                                 <label htmlFor="driver" className="cursor-pointer">Chauffeur</label>
                             </div>
                             <div className="flex justify-items-center gap-2 text-lg">
-                                <input id="driverPassenger" type="radio" className="" name="roleuser"/>
+                                <input 
+                                    id="both" 
+                                    type="radio" 
+                                    className="" 
+                                    name="roleuser"
+                                    value="both"
+                                    checked={isChecked === "both"}
+                                    />
                                 <label htmlFor="driverPassenger" className="cursor-pointer">Passager & Chauffeur</label>
+                            </div>
+                            <div>
+                                
                             </div>
                         </div>
                     </div>

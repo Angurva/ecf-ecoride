@@ -3,11 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 
 import { RiMenuFill, RiCloseLargeLine, RiDashboardFill } from 'react-icons/ri';
 import { MdOutlineContactSupport, MdDirectionsCar, MdOutlineHome } from 'react-icons/md';
 
+
 export default function Navbar() {
+
+  const { data: session } = useSession()
 
   const menuNav = [
     { id:1, name:'Home', path: '/', icon: MdOutlineHome },
@@ -58,15 +62,23 @@ export default function Navbar() {
               </li>
             ))
           }
-          <li>
-            <Link href="/dashboard" className="flex items-center gap-1 hover:text-amber-300">
-              <RiDashboardFill/>
-              <span>Dashboard</span>
-            </Link>
-          </li>
+          {
+            session && 
+            <li>
+              <Link href="/dashboard" className="flex items-center gap-1 hover:text-amber-300">
+                <RiDashboardFill/>
+                <span>Dashboard</span>
+              </Link>
+            </li>
+          }
+          
           <hr className="md:hidden mt-4 mx-10"/>
 
-          <div className="mt-4 flex flex-col gap-1 md:ml-auto md:flex md:flex-row md:items-center md:mt-0 md:gap-5 ">
+          {
+            session 
+            ? <a onClick={()=>signOut({callbackUrl:'/'})} href="#" className="ml-auto hover:text-amber-300">Déconnexion</a>
+            :
+            <div className="mt-4 flex flex-col gap-1 md:ml-auto md:flex md:flex-row md:items-center md:mt-0 md:gap-5 ">
             {
               menuAuth.map((item)=>(
                 <li key={item.id}>
@@ -78,12 +90,9 @@ export default function Navbar() {
               ))
             }
           </div>
-          <div>
-            <Link href="#" className="hover:text-amber-300">
-              <span>Logout</span>
-            </Link>
-            
-          </div>
+          }
+          
+         
         </ul>
 
       </div>
