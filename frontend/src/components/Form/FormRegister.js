@@ -3,9 +3,9 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod'
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import fetchData from '../../../lib/fetchData';
+import { fetcherPOST } from '../../../lib/fetchers';
 
 const formSchema = z.object({
     username: z.string().min(3,{message: "le pseudo doit faire minimum 3 caractères" }),
@@ -38,25 +38,15 @@ export default function FormRegister() {
         
         try{
 
-            //console.log("DATA",values.username, values.email, values.password)
-            const response = await fetchData(values.username, values.email, values.password)
-            /*const req = await fetch("http://localhost:8000/api/register" + new URLSearchParams({
+            const params = {
                 username: values.username,
-                email: values.email, 
-                password: values.password
-            }).toString())*/
+                email: values.email,
+                password: values.password,
+            }
 
-           /*const req = await fetch("http://192.168.10.83:8000/api/register",{
-                method: 'POST',
-                body: JSON.stringify({username: values.username, email: values.email, password: values.password}),
-                headers: {
-                    "Content-Type" : "application/json",
-                    
-                }
-              })
-                
-            const response = await req.json()*/
-            console.log("RESPONSE", response)
+            const response = await fetcherPOST("http://localhost:8000/api/register", params)
+           
+            //console.log("RESPONSE", response)
             if (response)
             {
                  router.push("/login")

@@ -1,77 +1,163 @@
+"use client"
 
-import React from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 
 import Searchbar from '@/components/Searchbar/Searchbar';
 
-import { RiStarFill } from 'react-icons/ri';
-import { PiClockThin, PiClockCountdownThin, PiSeatbeltThin, PiCoinsThin } from 'react-icons/pi';
+
+import CardCarpooling from '@/components/Carpooling/CardCarpooling';
+import Filter from '@/components/Carpooling/Filter';
+import filterReducer from '../../../lib/filters.reducer';
+
 
 export default function CarpoolingPage() {
+
+
+
+const [dataSearch, setDataSearch] = useState([])
+
+const [ dataSecond, setDataSecond] = useState([])
+
+const [ sorted, setSorted ] = useState("hour")
+
+const [ isChecked, setIsChecked ] = useState(false)
+
+function handleDataSearch(data){
+    
+    setDataSearch(data)
+    setDataSecond(data)
+}
+
+
+const sortByHour = ()=>{
+
+    //console.log("DATA FILTER", dataSearch)
+    const dataSort = dataSearch.slice().sort(function(a,b){
+      return a.departure_time.localeCompare(b.departure_time)
+    })  
+
+    //console.log("NEW STATE",dataSort)
+    //setDataSearch(dataSort)
+    setSorted("hour")
+    //handleDataSearch(dataSort)
+    setDataSearch(dataSort)
+
+}
+const sortByPrice = ()=>{
+
+    const dataSort = dataSearch.slice().sort(function(a,b){
+      return a.price.localeCompare(b.price)
+    })  
+    setSorted("price")
+    //handleDataSearch(dataSort)
+    setDataSearch(dataSort)
+}
+
+const handleCheck = () => {
+
+    setIsChecked(!isChecked)
+
+}
+
+useEffect(()=>{
+
+    if (isChecked)
+    {
+        const data = dataSearch.filter((element)=>element.energy === "electrique")
+        setDataSearch(data)
+    }else{
+        
+        setDataSearch(dataSecond)
+    }
+
+},[isChecked])
+
+/*const handleChangeHour = ()=>{
+    console.log("DATA FILTER", dataSearch)
+    const dataSort = dataSearch.sort(function(a,b){
+      return a.departure_time.localeCompare(b.departure_time)
+    })  
+
+    console.log("DATASORT",dataSort)
+    dispatch( { type: 'HOUR_FILTER', payload: { datasorted: dataSort  } })
+
+    console.log("NEW STATE",state)
+    setDataSearch(state.dataSort)
+}*/
+
   return (
     <section className="text-gray-900 md:container md:max-w-7xl md:mx-auto p-6 my-6">
         <div className="w-full flex flex-col items-center">
-            <Searchbar/>
-            <div className="w-full grid grid-flow-col py-5 gap-2">
-                <div className="md:col-span-4 col-span-3 row-end-2 flex p-2">
+            <Searchbar sendDataCarpooling={handleDataSearch}/>
+            {
+                dataSearch.length > 0 ? 
+                <div className="w-full grid grid-flow-col py-5 gap-2">
+                    <div className="md:col-span-4 col-span-3 row-end-2 flex p-2">
                     <div className="box-border w-full shadow-md border border-sky-600 rounded-md p-2 bg-white">
-                        <h5 className="text-sky-600 text-center md:text-xl mb-2">Filtres</h5>
-                        <hr className="m-2 border-t border-sky-600"/>
-                        <div className="flex items-center gap-2 p-2 text-sm md:text-base">
-                            <input type="radio" className="" name="filterRadio" />
-                            <label htmlFor="" className="text-gray-600">Prix</label>
-                        </div>
-                        <div className="flex items-center gap-2 p-2 text-sm md:text-base">
-                            <input type="radio" className="" name="filterRadio" />
-                            <label htmlFor="" className="text-gray-600">Note</label>
-                        </div>
-                        <div className="flex items-center gap-2 p-2 text-sm md:text-base">
-                            <input type="radio" className="" name="filterRadio" />
-                            <label htmlFor="" className="text-gray-600">Heure</label>
-                        </div>
-                        <div className="flex items-center gap-2 p-2 text-sm md:text-base">
-                            <input type="checkbox" className="" name="checkboxEcology" />
-                            <label htmlFor="" className="text-gray-600">Ecology</label>
-                        </div>
-                    </div>         
-                </div>
-                <div className="md:col-span-6 col-span-9 p-2 flex flex-col row-span-5 gap-4"> 
-                    <div className="box-border border border-slate-200 bg-white rounded-md px-5 py-3 flex items-center shadow gap-5">
-                        <div className="md:grid md:grid-cols-7 w-full">
-                            <div className="md:col-span-2 flex w-full items-center justify-between px-4">
-                                <div className="box-border md:size-12 md:text-base text-sm size-8 rounded-full border-2 border-slate-300 flex justify-center items-center">
-                                    <span>LH</span>
-                                </div>
-                                <span className="md:text-base text-sm">Lehanann</span>
-                                <span className="flex gap-1 items-center md:text-[13px] text-[12px]"><RiStarFill className="text-sky-600 md:text-base text-sm" />4.5/5</span>
-                            </div>
-                            <div className="md:col-span-3 flex flex-col gap-1 text-2xl md:p-2 md:px-4 px-5 py-4">
-                                <div className="flex items-center justify-between">
-                                    <PiClockThin className="text-slate-500"/>
-                                    <div className="text-[11px] w-full flex items-center before:mx-2 before:border-t before:flex before:items-center before:border-slate-500 before:w-full after:mx-2 after:border-t after:flex after:items-center after:border-slate-500 after:w-full ">60&nbsp;min</div>
-                                    <PiClockCountdownThin className="text-slate-500" />
-                                </div>
-                                <div className="flex flex-items justify-between">
-                                    <span className="text-[11px]">08:00</span>
-                                    <span className="text-[11px]">09:00</span>
-                                </div>
-                            </div>
-                            <div className="md:col-span-2 flex md:justify-center items-center justify-around">
-                                <div className="group flex relative md:mx-5"> 
-                                    <span  className="flex items-center gap-1 text-2xl"><PiSeatbeltThin/><span>:</span>2</span>
-                                    <div className="group-hover:opacity-100 transition-opacity bg-gray-800 py-1 px-2 text-[11px] text-gray-100 rounded-1 absolute left-1/2 
-                                     -translate-x-1/2 translate-y-full opacity-0 m-3 mx-auto" role="tooltip">
-                                        place(s)&nbsp;restante(s)
-                                    </div>
-                                </div>
-                                <span className="flex items-center gap-1 text-2xl md:ml-10">5,00<PiCoinsThin/></span>
-                            </div>
-
-                        </div>
+                    <h5 className="text-sky-600 text-center md:text-xl mb-2">Filtres</h5>
+                    <hr className="m-2 border-t border-sky-600"/>
+                    <div className="flex items-center gap-2 p-2 text-sm md:text-base">
+                        <input 
+                            type="radio"
+                            name="filterRadio" 
+                            value="hour"
+                            checked={sorted === "hour"}
+                            onChange={sortByHour}
+                            className=""
+                        />
+                        <label htmlFor="" className="text-gray-600">Heure</label>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 text-sm md:text-base">
+                        <input 
+                            type="radio"
+                            name="filterRadio"
+                            value="price"
+                            checked={sorted === "price"}
+                            onChange={sortByPrice}
+                            className=""  />
+                        <label htmlFor="" className="text-gray-600">Prix</label>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 text-sm md:text-base">
+                        <input 
+                            type="radio"
+                            name="filterRadio"
+                            value='note'
+                            //checked=""
+                            //onChange={''}
+                            className=""
+                        />
+                        <label htmlFor="" className="text-gray-600">Note</label>
+                    </div>
+                    
+                    
+                    <div className="flex items-center gap-2 p-2 text-sm md:text-base">
+                        <input 
+                            type="checkbox" 
+                            className="" 
+                            name="checkboxEcology" 
+                            checked={isChecked} 
+                            onChange={handleCheck}
+                        />
                         
-                       
+                        <label htmlFor="" className="text-gray-600">Ecology{isChecked}</label>
+                    </div>
+                    </div>   
+                    </div>
+                    <div className="md:col-span-6 col-span-9 p-2 flex flex-col row-span-5 gap-4"> 
+                        {
+                            dataSearch.map((cardCarpooling)=>(
+
+                                <CardCarpooling data={cardCarpooling} key={cardCarpooling.id}/>
+
+                            ))
+                        }
+                    
                     </div>
                 </div>
-            </div>
+                :
+                <div className="my-3 italic text-lg">Veuillez saisir les villes de départ et d'arrivée, ainsi que la date de votre voyage</div>
+            }
+           
         </div>
     </section>
   )

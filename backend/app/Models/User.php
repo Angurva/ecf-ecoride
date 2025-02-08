@@ -2,8 +2,11 @@
 
 namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Car;
 use App\Models\Role;
+use App\Models\Carpooling;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -48,6 +51,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all of the Car for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cars(): HasMany
+    {
+        return $this->hasMany(Car::class);
+    }
+    
+    /**
      * Get all of the Roles for the User
      *
      * @return BelongToMany
@@ -56,4 +69,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    /**
+     * Get all of the Carpooling for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function carpoolings(): BelongsToMany
+    {
+        return $this->belongsToMany(Carpooling::class);
+    }
+
 }
