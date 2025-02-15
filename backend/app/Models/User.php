@@ -4,6 +4,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Car;
 use App\Models\Role;
+use App\Models\Opinion;
 use App\Models\Carpooling;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        
     ];
 
     /**
@@ -35,6 +37,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -78,6 +83,16 @@ class User extends Authenticatable
     public function carpoolings(): BelongsToMany
     {
         return $this->belongsToMany(Carpooling::class);
+    }
+
+    /**
+     * Get all of the Opinion for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function opinions(): BelongsToMany
+    {
+        return $this->belongsToMany(Opinion::class);
     }
 
 }

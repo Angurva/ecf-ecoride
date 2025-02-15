@@ -1,41 +1,31 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { UserContext } from '../../../components/UserContext';
 
-
-import { LiaPenFancySolid } from "react-icons/lia";
 import Identity from './users/Identity';
-import Informations from './users/Informations';
 import Favourites from './users/Favourites';
 import Vehicle from './users/Vehicle';
 import { useSession } from 'next-auth/react';
-import { Form } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
-export default function User(roles) {
+import ButtonAddVehicle from './users/ButtonAddVehicle';
+import ButtonAddCarpooling from './users/ButtonAddCarpooling';
+import HistoryCarpooling from './users/HistoryCarpooling';
+
+
+
+export default function User() {
 
     const { data: session } = useSession()
 
-    const [ data, setData ] = useState(roles)
+    const { userCtx, rolesCtx, carsCtx } = useContext(UserContext)
 
-    const [isChecked, setIsChecked ] = useState("")
-
-    //const [ isDisabled, setIsDisabled ] = useState(true)
-
-    
-
-    useEffect(()=>{
-
-
-    }, [])
-
-    const handleChange = () => {
-
-
-    }
-
+    const router = useRouter()
 
 
   return (
+ 
     <article 
         className="
             w-full
@@ -43,7 +33,7 @@ export default function User(roles) {
             md:grid md:grid-cols-6 gap-2 flex flex-col
         "
     >
-        <div className="md:col-span-4 flex flex-col gap-2">
+        <div className={`flex flex-col gap-2 ${rolesCtx.length === 1 && rolesCtx.includes('passenger') ? 'md:col-span-6' : 'md:col-span-4'  }`}>
             <div 
                 className="
                     flex flex-col gap-5
@@ -52,96 +42,70 @@ export default function User(roles) {
                     order-1
                     "
             >
-                <Identity/>
-                <div className="flex flex-col md:flex-row">
-
-                    <Informations />
-                    <div 
-                        className="
-                            flex flex-col gap-2 order-1 my-5 
-                            md:gap-5 md:w-2/5
-                        "
-                    >
-                        <div 
-                            className="
-                                flex flex-wrap justify-center gap-2 px-10 py-5
-                                md: md:flex-col md:ml-auto md:gap-2 
-                                border p-2 rounded-md bg-slate-100
-                            "
-                        > 
-                            <div className="flex grow items-center gap-2 text-lg">
-                                <input 
-                                    id="passenger" 
-                                    type="radio" 
-                                    className="" 
-                                    name="roleuser" 
-                                    value="passenger"
-                                    checked={isChecked === "passenger"}
-                                    />
-                                <label htmlFor="passenger" className="cursor-pointer">Passager</label>
-                            </div>
-                            <div className="flex items-center gap-2 text-lg">
-                                <input 
-                                    id="driver" 
-                                    type="radio" 
-                                    className="" 
-                                    name="roleuser"
-                                    value="driver"
-                                    checked={ isChecked === "driver"}
-                                    />
-                                <label htmlFor="driver" className="cursor-pointer">Chauffeur</label>
-                            </div>
-                            <div className="flex justify-items-center gap-2 text-lg">
-                                <input 
-                                    id="both" 
-                                    type="radio" 
-                                    className="" 
-                                    name="roleuser"
-                                    value="both"
-                                    checked={isChecked === "both"}
-                                    />
-                                <label htmlFor="driverPassenger" className="cursor-pointer">Passager & Chauffeur</label>
-                            </div>
-                            <div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Identity/> 
             </div>
-
+            
             <div 
                 className="
-                    border border-slate-200 shadow-lg rounded-md bg-white
-                    flex flex-col
-                    order-3
-                ">
-                    <Favourites/>
+                    flex flex-col gap-5
+                    md:gap-2
+                    border rounded-md p-5 shadow-lg bg-white
+                    order-4
+                    "
+            >
+                    
+                <HistoryCarpooling/>
+
             </div>
+
+            
         </div>
-        
-        <div 
-            className="
-                flex flex-col
-                md:col-span-2
-                order-2
-            "
-        >
-                    <div className="bg-white border border-slate-200 flex flex-col shadow-lg p-6">
-                        <Vehicle/>
-                    </div>
-           
-           
-        
-        </div>
+     
 
-        
-
-    
-        
-
-        
-        
+           <div 
+                    className="
+                        flex flex-col
+                        md:col-span-2
+                        order-2 gap-3
+                    "
+                >   { rolesCtx.includes("driver") &&
+                    (
+                        <>
+                            <div className="bg-white border border-slate-200 flex flex-col shadow-lg p-6">
+                                <div className="w-full ">
+                                    <div className="flex items-center mb-2 gap-5">
+                                        <h6>Mes Vehicules</h6>
+                                        <ButtonAddVehicle />
+                                        
+                                    </div>
+                                    <div className="flex flex-col">
+                                    {
+                                        carsCtx.map((car)=>(
+                                            <Vehicle data={car} key={car?.id}/>
+                                        ))   
+                                    }
+                                    </div>
+                                </div>
+                            </div>  
+                            <div 
+                                className="
+                                    border border-slate-200 shadow-lg rounded-md bg-white
+                                    flex flex-col
+                                    
+                                ">
+                                    <Favourites/>
+                            </div>
+                            <div  className="flex p-6  items-center justify-center">
+                                <ButtonAddCarpooling />
+                            
+                            </div> 
+                        </>   
+                    )
+                    }  
+                   
+                </div>  
+       
     </article>
+ 
   )
 }

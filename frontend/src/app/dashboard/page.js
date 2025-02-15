@@ -1,9 +1,10 @@
 'use client'
 
-import React,{useEffect, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import { useSession } from 'next-auth/react';
-import { redirect, useRouter } from 'next/navigation';
-import { v4 as uuidv4 } from 'uuid'
+import { useRouter } from 'next/navigation';
+import { UserContext } from '../../../components/UserContext';
+
 
 import { fetcherGET } from '../../../lib/fetchers';
 
@@ -16,9 +17,14 @@ export default function Dashboard() {
 
   const { data: session } = useSession()
 
-  const router = useRouter()
+  const {userCtx, setUserCtx, rolesCtx, setRolesCtx, carsCtx, setCarsCtx, stateCtx, setStateCtx,carpoolingPassengerCtx, setCarpoolingPassengerCtx,
+    carpoolingDriverCtx, setcarpoolingDriverCtx, setNoteCtx } = useContext(UserContext)
 
-  const [roles, setRoles] = useState([])
+  const router = useRouter()
+/*
+  const [ roles, setRoles ] = useState([])
+  const [ cars, setCars ] =useState([])  
+  const [ user, setUser ] = useState({})*/
 
   
   useEffect(()=>{
@@ -32,47 +38,60 @@ export default function Dashboard() {
 
   useEffect(()=>{
 
-    
-    if(session)
+    if(session || stateCtx)
     {
 
       const request = async () =>{
 
-        const data = await fetcherGET(`http://localhost:8000/api/roles-user/${session?.user.id}`)
+        const data = await fetcherGET(`http://localhost:8000/api/user/${session?.user.id}`)
+        console.log("RESPONSEDATAUSER", data)
         if (data)
         {
-          setRoles(data)
+          setUserCtx(data.user)
+          setRolesCtx(data.roles)
+          setCarsCtx(data.cars)
+          setNoteCtx(data.note)
+          setCarpoolingPassengerCtx(data.carpoolings_passenger),
+          setcarpoolingDriverCtx(data.carpoolings_driver)
+         
         }
         
       }
 
       request()
+      setStateCtx(false)
    
     }
 
-  }, [])
+  }, [stateCtx])
+
+  
 
   function workspace (){
 
-    if (['passenger', 'driver'].some((element) => roles.includes(element)))
+    console.log("ROLES", rolesCtx)
+    console.log("CARS", carsCtx)
+    console.log("USER", userCtx)
+    console.log("CARPOOLINGS_PASSENGER",carpoolingPassengerCtx)
+    console.log("CARPOOLINGS_DRIVER",carpoolingDriverCtx)
+
+    if (['passenger', 'driver'].some((element) => rolesCtx.includes(element)))
     {
-      return <User data={roles}/>
+      return <User /> //roles={roles} user={user} cars={cars}
     }
-    if (['employee'].some((element) => roles.includes(element)))
+    if (['employee'].some((element) => rolesCtx.includes(element)))
     {
       return <Employee/>
     }
-    if (['administrator'].some((element) => roles.includes(element)))
+    if (['administrator'].some((element) => rolesCtx.includes(element)))
     {
       return <Admin />
     }
-   
+  
   }
  
   return (
     <section className="max-w-7xl mx-auto p-6 flex flex-col items-center justify-center gap-5 text-gray-700">
-
-      <div className="text-black">test{session?.user.id}</div>
     
       {
         session &&

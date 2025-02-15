@@ -14,6 +14,17 @@ class Carpooling extends Model
     use HasFactory;
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'pivot',
+    ];
+
+    /**
      * Get the Car for the Carpooling
      *
      * @return BelongsTo

@@ -11,6 +11,17 @@ class Car extends Model
 {
     use HasFactory;
 
+     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'pivot',
+    ];
+    
     /**
      * Get all the Carpoolings that owns the Car
      *
@@ -28,7 +39,7 @@ class Car extends Model
      */
     public function brand(): BelongsTo
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class)->select('name');
     }
 
      /**

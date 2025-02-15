@@ -3,11 +3,15 @@ import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { fetcherGET } from '../../../lib/fetchers';
+import { toast } from 'react-toastify';
+import { fetcherSEARCH } from '../../../lib/fetchers';
 import dayjs from 'dayjs';
 import { usePathname } from 'next/navigation';
 
-
+const myHeaders = new Headers({
+  "Content-Type": "application/json",
+  Accept: "application/json",
+})
 
 const formSchema = z.object({
   depart_location: z.string().min(2,{message:"ce champs doit-être rempli"}),
@@ -39,13 +43,24 @@ export default function Searchbar({sendDataCarpooling}) {
         departure_date: dayjs(values.depart_date).format('YYYY-MM-DD').toString(),
       }
 
-      const response = await fetcherGET("http://127.0.0.1:8000/api/search-carpooling?", params)
+      const response = await fetcherSEARCH("http://127.0.0.1:8000/api/carpooling/search?",params)
+      console.log("RESPONSE", response.status)
 
-      console.log("RESPONSE", response)
-      sendDataCarpooling(response)
+      if(response.status === 200)
+      {
+        sendDataCarpooling(response.data)
+      }
+      if(response.status === 404)
+      {
+        sendDataCarpooling([])
+        toast.error("Aucun résultat n'a été trouvé")
+      }
+            
+     
     }
     catch (error){
       console.error(error)
+     
     }
   }
 

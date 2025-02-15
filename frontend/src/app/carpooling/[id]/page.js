@@ -49,7 +49,7 @@ export default function CarpoolingById() {
                 }
             }
             else{
-                toast.error("Vous devez être connécté, pour effectuer la réservation")
+                toast.error("Vous devez être connecté, pour effectuer la réservation")
                 router.push("/login")
             }
             
@@ -203,7 +203,7 @@ export default function CarpoolingById() {
                 </button>
                 {
                     openModal &&
-                        <div className='fixed top-0 left-0 w-full h-full bg-gray-300 flex justify-center items-center'>
+                        <div className='fixed top-0 left-0 w-full h-full bg-gray-700 flex justify-center items-center bg-opacity-65'>
                             <div className='max-w-[460px] bg-white shadow-lg py-2 rounded-md'>
                                 <h2 className='text-sm font-medium text-gray-900 border-b border-gray-300 py-3 px-4 mb-4'>Confirmation de validation.</h2>
                                 <div className='px-4 pb-4'>

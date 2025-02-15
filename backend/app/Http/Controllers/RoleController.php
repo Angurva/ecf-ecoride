@@ -59,4 +59,17 @@ class RoleController extends Controller
         }
         return response()->json($roles_user);
     }
+    public function allByUser(User $user){
+
+        //$roles_user = [];
+        $roles_user = array();
+        foreach ($user->roles as $role)
+        {
+            //array_push($roles_user, $role->name);
+            $roles_user[] = $role->name;
+        }
+        return response()->json($roles);
+    }
+
+    
 }

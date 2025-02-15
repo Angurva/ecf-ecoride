@@ -2,6 +2,11 @@ import React from 'react'
 
 export default function Admin() {
   return (
-    <div>Admin</div>
+    <section className=" w-full border border-slate-700 p-6 flex gap-5 rounded-md flex-col">
+      
+      <article className="">
+        
+      </article>
+    </section>
   )
 }

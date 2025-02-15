@@ -76,7 +76,7 @@ export default function Navbar() {
 
           {
             session 
-            ? <a onClick={()=>signOut({ redirect:false })} href="#" className="ml-auto hover:text-amber-300">Déconnexion</a>
+            ? <a onClick={()=>signOut({ redirect:false })} href="#" className="mt-4 flex flex-col gap-1 md:ml-auto md:flex md:flex-row md:items-center md:mt-0 hover:text-amber-300">Déconnexion</a>
             :
             <div className="mt-4 flex flex-col gap-1 md:ml-auto md:flex md:flex-row md:items-center md:mt-0 md:gap-5 ">
             {

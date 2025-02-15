@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
+use App\Models\User;
 use App\Models\Carpooling;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CarpoolingController extends Controller
 {
@@ -20,7 +23,21 @@ class CarpoolingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $carpooling = New Carpooling;
+
+        $carpooling->departure_location = $request->input('departure_location');
+        $carpooling->departure_date = $request->input('departure_date');
+        $carpooling->departure_time = $request->input('departure_time');
+        $carpooling->end_location = $request->input('end_location');
+        $carpooling->end_date = $request->input('end_date');
+        $carpooling->end_time = $request->input('end_time');
+        $carpooling->car_id = $request->input('car');
+        $carpooling->place_number = $request->input('place');
+        $carpooling->price = $request->input('price');
+
+        $carpooling->save();
+
+        return response()->json(["success" => "enregistrement covoiturage réussi"],200);
     }
 
     /**
@@ -51,7 +68,10 @@ class CarpoolingController extends Controller
      */
     public function update(Request $request, Carpooling $carpooling)
     {
-        //
+        $carpooling->status = $request->input('status');
+        $carpooling->save();
+
+        return response()->json(["success"=>"opération réussie"],200);
     }
 
     /**
@@ -74,8 +94,9 @@ class CarpoolingController extends Controller
                                     ->where([
                                     ['departure_location', 'LIKE',$request->input('departure_location')],
                                     ['end_location','LIKE',$request->input('end_location')],
-                                    ['departure_date', '=',$request->input('departure_date')]
+                                    ['departure_date', '=',$request->input('departure_date')],
                                     ])
+                                    ->whereIn('status', ['in progress'])
                                     ->orderBy('departure_date','asc')
                                     ->orderBy('departure_time','asc')
                                     ->select(
@@ -89,6 +110,8 @@ class CarpoolingController extends Controller
                                         'users.email',
                                     )
                                     ->get();
+        
+
         if(count($carpoolings) === 0)
         {
             return response()->json(['errors' => 'aucun resultat n\'a été trouvé'], 404);
@@ -107,10 +130,12 @@ class CarpoolingController extends Controller
         }
         return response()->json($carpoolingsList,200);
     }
-
-    public function reservation(Request $request){
-
-
+    /**
+     * 
+     * 
+     */
+    public function reservation(Request $request)
+    {
         $carpooling = Carpooling::find($request->carpooling);
         $users = $carpooling->users()->get();
         $count = count($users);
@@ -125,5 +150,55 @@ class CarpoolingController extends Controller
         
     }
 
+    public function history_passenger(User $user){
+
+        $carpoolings = $user->carpoolings()->get();
+
+        return response()->json();
+
+    }
+
+    public function history_driver(User $user)
+    {
+        //$carpoolings = $car->carpoolings()->get();
+
+        $carpoolings = Carpooling::rightJoin('cars','carpoolings.car_id','=', 'cars.id')
+                                    ->rightJoin('users','cars.user_id','=','users.id' )
+                                    ->where('users.id',$user->id)
+                                    ->whereIn('status', ['done', 'cancelled'])
+                                    ->orderBy('departure_date','desc')
+                                    ->select('carpoolings.*')
+                                    ->get();
+
+        return response()->json($carpoolings);
+    }
     
+
+    public function carpool(Request $request){
+
+        $carpoolings = Carpooling::leftJoin('cars', 'carpoolings.car_id', '=', 'cars.id')
+                                    ->leftJoin('users', 'cars.user_id','=','users.id')
+                                    ->leftJoin('brands', 'cars.brand_id','=','brands.id')
+                                    ->where([
+                                    ['departure_location', 'LIKE',$request->input('departure_location')],
+                                    ['end_location','LIKE',$request->input('end_location')],
+                                    ['departure_date', '=',$request->input('departure_date')],
+                                    ])
+                                    ->whereIn('status', ['in progress'])
+                                    ->orderBy('departure_date','asc')
+                                    ->orderBy('departure_time','asc')
+                                    ->select(
+                                        'carpoolings.*',
+                                        'brands.name',
+                                        'cars.model',
+                                        'cars.registration',
+                                        'cars.color',
+                                        'cars.energy',
+                                        'users.username',
+                                        'users.email',
+                                    )
+                                    ->get();
+
+        return response()->json($carpoolings);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -20,7 +21,30 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $car = new Car;
+
+        $brand = Brand::where("brands.name", 'LIKE',$request->input('brand'))->first();
+
+        if (is_null($brand))
+        {
+            $brandNew = new Brand;
+            $brandNew->name = $request->input('brand');
+            $brandNew->save();
+            $brand = Brand::where("brands.name", 'LIKE',$request->input('brand'))->first();
+        }
+
+        $car->model = $request->input('model');
+        $car->registration = $request->input('registration');
+        $car->first_registration_date = $request->input('first_registration_date');
+        $car->energy = $request->input('energy');
+        $car->color = $request->input('color');
+        $car->brand_id = $brand->id;
+        $car->user_id = $request->input('user');
+
+        $car->save();
+
+        return response()->json(["success"=>"ajout réussi"],200);
+        
     }
 
     /**
@@ -44,6 +68,8 @@ class CarController extends Controller
      */
     public function destroy(Car $car)
     {
-        //
+        $car->delete();
+
+        return response()->json(["success" => "item deleted with success"]);
     }
 }
