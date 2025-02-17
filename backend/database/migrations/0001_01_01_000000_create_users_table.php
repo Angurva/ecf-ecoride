@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->date('birth_date')->nullable();
             $table->binary('photo')->nullable();
+            $table->integer('credit')->nullable();
             $table->boolean('isEnabled');
             $table->rememberToken();
             $table->timestamps();

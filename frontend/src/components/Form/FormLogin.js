@@ -73,7 +73,7 @@ export default function FormLogin() {
             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
         </div>
         <div className="flex flex-col gap-1">
-            <label className="text-slate-900 text-[14px]">Password</label>
+            <label className="text-slate-900 text-[14px]">Mot de passe</label>
             <input {...register('password')} type="password" className="h-10 border border-slate-900 p-4 rounded-md"></input>
             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
         </div>

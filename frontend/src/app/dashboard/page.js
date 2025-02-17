@@ -69,11 +69,11 @@ export default function Dashboard() {
 
   function workspace (){
 
-    console.log("ROLES", rolesCtx)
+    /*console.log("ROLES", rolesCtx)
     console.log("CARS", carsCtx)
     console.log("USER", userCtx)
     console.log("CARPOOLINGS_PASSENGER",carpoolingPassengerCtx)
-    console.log("CARPOOLINGS_DRIVER",carpoolingDriverCtx)
+    console.log("CARPOOLINGS_DRIVER",carpoolingDriverCtx)*/
 
     if (['passenger', 'driver'].some((element) => rolesCtx.includes(element)))
     {

@@ -36,7 +36,6 @@ export default function FormCar({sendStateModal, stateModal}) {
             date_registration: dayjs(),
             energy: "",
             color: "",
-            place: "",
         }
     })
 
@@ -51,7 +50,6 @@ export default function FormCar({sendStateModal, stateModal}) {
                 first_registration_date: values.date_registration,
                 energy: values.energy.toLowerCase(),
                 color: values.color.toLowerCase(),
-                place: values.place,
                 user: session?.user.id
             }
 
@@ -106,11 +104,7 @@ export default function FormCar({sendStateModal, stateModal}) {
             <input {...register('color')} type="text" className="h-10 border border-slate-900 p-4 rounded-md"></input>
             {errors.color && <p className="text-red-500">{errors.color.message}</p>}
         </div>
-        <div className="flex flex-col gap-1">
-            <label className="text-slate-900  text-[14px]">Nombre de place</label>
-            <input {...register('place')} type="text" className="h-10 border border-slate-900 p-4 rounded-md"></input>
-            {errors.place && <p className="text-red-500">{errors.place.message}</p>}
-        </div>
+        
         
         <button type="submit" className="bg-sky-600 border border-sky-800 ease-in-out duration-300 px-3 py-1.5 text-white my-3 rounded-md hover:bg-sky-800  hover:border-sky-600">Ajouter</button>
        

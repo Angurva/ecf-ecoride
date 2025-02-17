@@ -67,7 +67,7 @@ export default function FormRegister() {
         <h2 className="text-2xl">Inscription</h2>
         <hr className=' border-gray-400'/>
         <div className="flex flex-col gap-1">
-            <label className="text-slate-900 text-[14px]">Username</label>
+            <label className="text-slate-900 text-[14px]">Nom d'utilisateur</label>
             <input {...register('username')} type="text" className="h-10 border border-slate-900 p-4 rounded-md"></input>
             {errors.username && <p className="text-red-500">{errors.username.message}</p>}
         </div>
@@ -77,12 +77,12 @@ export default function FormRegister() {
             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
         </div>
         <div className="flex flex-col gap-1">
-            <label className="text-slate-900 text-[14px]">Password</label>
+            <label className="text-slate-900 text-[14px]">Mot de passe </label>
             <input {...register('password')} type="password" className="h-10 border border-slate-900 p-4 rounded-md"></input>
             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
         </div>
         <div className="flex flex-col gap-1">
-            <label className="text-slate-900  text-[14px]">Confirm password</label>
+            <label className="text-slate-900  text-[14px]">Confirmation du mot de passe</label>
             <input {...register('confirmPassword')} type="password" className="h-10 border border-slate-900 p-4 rounded-md"></input>
             {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
         </div>

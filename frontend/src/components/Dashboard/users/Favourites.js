@@ -13,7 +13,7 @@ export default function Favourites() {
         </div>
         <div className="flex items-start">
             <GiDuration className="mt-1 text-xl md:text-2xl" />
-            <span className="md:text-xl text-lg">&nbsp;:&nbsp;45&nbsp;min.</span>
+            <span className="md:text-xl text-lg">&nbsp;:&nbsp;&nbsp;min.</span>
         </div>
         <div className="flex items-start">
             <TbPawOff className="mt-1 text-xl md:text-2xl" />

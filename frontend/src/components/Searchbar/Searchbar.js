@@ -70,14 +70,14 @@ export default function Searchbar({sendDataCarpooling}) {
         <input
           {...register('depart_location')}
           type="text" 
-          placeholder="enter the departure city.."  
+          placeholder="Ville de départ.."  
           className=" border border-slate-300 rounded-md py-1 px-2 w-[15rem] text-slate-700"
         />
         {errors.depart_location && <p className="text-red-500">{errors.depart_location.message}</p>}
         <input 
            {...register('end_location')}
           type="text" 
-          placeholder="enter the arrival city.."  
+          placeholder="Ville d'arrivée..."  
           className="border border-slate-300 rounded-md py-1 px-2 w-[15rem] text-slate-700"
         />
          {errors.end_location && <p className="text-red-500">{errors.end_location.message}</p>}

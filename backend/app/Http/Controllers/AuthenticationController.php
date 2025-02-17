@@ -30,8 +30,9 @@ class AuthenticationController extends Controller
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->isEnabled = true;
+        $user->credit = 20;
         $user->save(); 
-        $user->roles()->attach(1);        
+        $user->roles()->attach(3);        
         return response()->json($user, 200);
     }
 

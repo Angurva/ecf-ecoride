@@ -16,7 +16,6 @@ const formSchema = z.object({
     phone: z.string().optional(),
     address: z.string().optional(),
     roles: z.string().array().optional(),
-    photo:z.any().optional()
     
 })
 
@@ -38,7 +37,6 @@ export default function FormUserIdentity({sendStateModal, stateModal }) {
             phone:userCtx.phone || "",
             address: userCtx.address || "",
             roles: rolesCtx,
-            photo:null,
         }
     })
 
@@ -54,7 +52,6 @@ export default function FormUserIdentity({sendStateModal, stateModal }) {
                 lastname: values.lastname.toLowerCase(),
                 phone: values.phone,
                 address: values.address.toLowerCase(),
-                photo: values.photo[0],
                 roles: values.roles,
             }
 

@@ -14,13 +14,13 @@ export default function Navbar() {
   const { data: session } = useSession()
 
   const menuNav = [
-    { id:1, name:'Home', path: '/', icon: MdOutlineHome },
-    { id:2, name:'Carpooling', path: '/carpooling', icon: MdDirectionsCar },
+    { id:1, name:'Accueil', path: '/', icon: MdOutlineHome },
+    { id:2, name:'Covoiturage', path: '/carpooling', icon: MdDirectionsCar },
     { id:3, name:'Contact', path: '/contact', icon: MdOutlineContactSupport }
   ]
   const menuAuth = [
-    { id:1, name:'Login', path: '/login' },
-    { id:2, name:'Register', path: '/register' },
+    { id:1, name:'Se connecter', path: '/login' },
+    { id:2, name:'S\'inscrire', path: '/register' },
   ]
 
   const [ isOpen, setIsOpen ] = useState(true)
@@ -49,7 +49,7 @@ export default function Navbar() {
             </button>
         }
         <ul id="toggled menu" aria-expanded={isOpen} className={`w-full absolute top-full left-0 -z-10
-          border-b border-sky-500 flex flex-col pl-6 pb-6 bg-sky-600 
+          border-b border-sky-600 flex flex-col pl-6 pb-6 bg-sky-600 
           md:static md:z-10 md:w-full md:transform-none md:border-none md:flex-row md:items-center md:gap-5 md:pl-0 md:pb-0
           transform ${ isOpen ? `-translate-y-0`: `-translate-y-full`}`} >
           {
@@ -67,7 +67,7 @@ export default function Navbar() {
             <li>
               <Link href="/dashboard" className="flex items-center gap-1 hover:text-amber-300">
                 <RiDashboardFill/>
-                <span>Dashboard</span>
+                <span>Mon espace</span>
               </Link>
             </li>
           }
@@ -76,7 +76,7 @@ export default function Navbar() {
 
           {
             session 
-            ? <a onClick={()=>signOut({ redirect:false })} href="#" className="mt-4 flex flex-col gap-1 md:ml-auto md:flex md:flex-row md:items-center md:mt-0 hover:text-amber-300">Déconnexion</a>
+            ? <a onClick={()=>signOut({ redirect:false })} href="#" className="mt-4 flex flex-col gap-1 md:ml-auto md:flex md:flex-row md:items-center md:mt-0 hover:text-amber-300">Se Déconnecter</a>
             :
             <div className="mt-4 flex flex-col gap-1 md:ml-auto md:flex md:flex-row md:items-center md:mt-0 md:gap-5 ">
             {

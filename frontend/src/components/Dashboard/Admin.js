@@ -5,7 +5,7 @@ export default function Admin() {
     <section className=" w-full border border-slate-700 p-6 flex gap-5 rounded-md flex-col">
       
       <article className="">
-        
+      Espace Administrateur  
       </article>
     </section>
   )
