@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->binary('photo')->nullable();
             $table->integer('credit')->nullable();
-            $table->boolean('isEnabled');
+            $table->boolean('is_enabled');
             $table->rememberToken();
             $table->timestamps();
         });

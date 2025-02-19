@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->isEnabled = true;
+        $user->is_enabled = true;
         $user->credit = 20;
         $user->save(); 
         $user->roles()->attach(3);        
