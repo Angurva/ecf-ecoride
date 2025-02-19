@@ -10,8 +10,11 @@ import { fetcherPOST } from '../../../lib/fetchers';
 const formSchema = z.object({
     username: z.string().min(3,{message: "le pseudo doit faire minimum 3 caractères" }),
     email: z.string().min(1,{ message: "Ce champs est requis"}).email("format non valide").max(254,{message: "Votre email dépasse les 254 caractères"}),
-    password: z.string().min(6, {message: "le mot de passe doit contenir au minimum 6 caractères"}),
-    confirmPassword: z.string().min(6, {message: "le mot de passe doit contenir au minimum 6 caractères"}),
+    password: z.string().min(12,{message: "le mot de passe ne doit pas faire moins de 12 caractères"}).regex(new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$'), {
+        message:
+            'le mot de passe doit contenir une majuscule, une miniscule et un chiffre, '
+    }),
+    confirmPassword: z.string().min(12),
 }).refine(({confirmPassword, password}) => {
     return confirmPassword === password
 }, {
