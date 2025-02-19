@@ -1,0 +1,9 @@
+
+server {
+
+	listen 80;
+	#listen [::]:80 default_server;
+	server_name 127.0.0.1;
+	return 301 https://localhost$request_uri;
+	
+}
